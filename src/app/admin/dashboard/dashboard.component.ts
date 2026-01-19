@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Chart, ChartDataset, ChartOptions, ChartType, ChartData } from 'chart.js';
+import { Chart, ChartOptions, ChartType, ChartData } from 'chart.js';
 import { NgChartsModule } from 'ng2-charts';
 import { environment } from '../../../environments/environment';
 
@@ -39,8 +39,10 @@ export class DashboardComponent implements OnInit {
   sapHetList: any[] = [];
 
   barChartType: ChartType = 'bar';
-  barChartLabels: string[] = [];
-  barChartData: ChartDataset<'bar'>[] = [];
+  barChartData: ChartData<'bar'> = {
+    labels: [],
+    datasets: []
+  };
   barChartOptions: ChartOptions = {
     responsive: true,
     plugins: {
@@ -79,7 +81,7 @@ export class DashboardComponent implements OnInit {
   recentNhapData: number[] = [];
   recentXuatData: number[] = [];
 
-  recentChartData: ChartDataset<'bar'>[] = [];
+  recentChartData: ChartData<'bar'>['datasets'] = [];
   recentChartOptions: ChartOptions = {
     responsive: true,
     plugins: {
@@ -191,15 +193,25 @@ export class DashboardComponent implements OnInit {
       });
 
       const sortedLabels = Array.from(labelSet).sort();
-      this.barChartLabels = sortedLabels;
 
       const nhapData = sortedLabels.map(label => nhapMap.get(label) || 0);
       const xuatData = sortedLabels.map(label => xuatMap.get(label) || 0);
 
-      this.barChartData = [
-        { data: nhapData, label: 'Nhập kho', backgroundColor: '#4CAF50' },
-        { data: xuatData, label: 'Xuất kho', backgroundColor: '#F44336' }
-      ];
+      this.barChartData = {
+        labels: sortedLabels,
+        datasets: [
+          {
+            data: nhapData,
+            label: 'Nhập kho',
+            backgroundColor: '#4CAF50'
+          },
+          {
+            data: xuatData,
+            label: 'Xuất kho',
+            backgroundColor: '#F44336'
+          }
+        ]
+      };
     }, error => {
       console.error('❌ Lỗi khi lấy dữ liệu nhập/xuất:', error);
     });

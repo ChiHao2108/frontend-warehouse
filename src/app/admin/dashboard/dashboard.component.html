@@ -147,8 +147,7 @@
 
               <!-- Biểu đồ nhập xuất -->
               <canvas *ngIf="!showLocationChart" baseChart
-                [datasets]="barChartData"
-                [labels]="barChartLabels"
+                [data]="barChartData"
                 [options]="barChartOptions"
                 [type]="barChartType"
                 style="max-width: 90%; max-height: 400px;">
