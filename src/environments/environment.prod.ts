@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://warehousetch.onrender.com/api'
+  apiUrl: 'https://backend-warehouse-production-d24c.up.railway.app/api'
 };
