@@ -53,7 +53,7 @@ export class QuanlysanphamComponent implements OnInit {
     khu_vuc_id: '',
     location: '',
     supplier_name: 'T&H Warehouse Manager',
-    logo_url: 'http://localhost:3000/uploads/logogpt.png',
+    logo_url: 'https://backend-warehouse-production-d24c.up.railway.app/uploads/logogpt.png',
     receipt_code: ''
   };
 
